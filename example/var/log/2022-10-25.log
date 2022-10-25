@@ -1,0 +1,23 @@
+{"level":"error","ts":1666697161.1286168,"caller":"example/main.go:26","msg":"Not Ok"}
+{"level":"error","ts":1666697204.8203082,"caller":"example/main.go:24","msg":"Not Ok"}
+{"level":"error","ts":1666697288.0814018,"caller":"example/main.go:27","msg":"Not Ok"}
+{"level":"error","ts":1666697323.3241217,"caller":"example/main.go:27","msg":"Not Ok"}
+{"level":"error","ts":1666703463.7677813,"caller":"example/main.go:25","msg":"Error"}
+{"level":"error","ts":1666703519.8320248,"caller":"example/main.go:25","msg":"Error"}
+{"level":"error","ts":1666703539.4760659,"caller":"example/main.go:25","msg":"Error"}
+{"level":"error","ts":1666703561.1893947,"caller":"example/main.go:25","msg":"Error"}
+{"level":"error","ts":1666703673.827292,"caller":"example/main.go:25","msg":"Error"}
+{"level":"error","ts":1666703673.8294902,"caller":"example/main.go:26","msg":"Critical"}
+{"level":"error","ts":1666703683.2799518,"caller":"example/main.go:25","msg":"Error"}
+{"level":"panic","ts":1666703683.281212,"caller":"example/main.go:26","msg":"Critical","stacktrace":"main.main\n\tE:/projects/github/micron/example/main.go:26\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:250"}
+{"level":"error","ts":1666703698.1297472,"caller":"example/main.go:25","msg":"Error"}
+{"level":"dpanic","ts":1666703698.1308389,"caller":"example/main.go:26","msg":"Critical","stacktrace":"main.main\n\tE:/projects/github/micron/example/main.go:26\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:250"}
+{"level":"error","ts":1666703715.0731554,"caller":"example/main.go:25","msg":"Error"}
+{"level":"panic","ts":1666703715.0750935,"caller":"example/main.go:26","msg":"Critical","stacktrace":"main.main\n\tE:/projects/github/micron/example/main.go:26\nruntime.main\n\tC:/Program Files/Go/src/runtime/proc.go:250"}
+{"level":"error","ts":1666703787.6475909,"caller":"example/main.go:25","msg":"Error"}
+{"level":"error","ts":1666703805.0495856,"caller":"example/main.go:27","msg":"Error"}
+{"level":"error","ts":1666703912.3374014,"caller":"example/main.go:28","msg":"Error"}
+{"level":"error","ts":1666703942.2235193,"caller":"example/main.go:28","msg":"Error"}
+{"level":"error","ts":1666703963.2975056,"caller":"example/main.go:30","msg":"Error"}
+{"level":"error","ts":1666703978.5044994,"caller":"example/main.go:30","msg":"Error"}
+{"level":"error","ts":1666703988.6834931,"caller":"example/main.go:28","msg":"Error"}

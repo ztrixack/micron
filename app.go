@@ -7,17 +7,12 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/ztrixack/micron/log"
-
-	"go.uber.org/zap"
-	"gopkg.in/yaml.v3"
+	"github.com/spf13/viper"
 )
-
-const LOG = "BOOT"
 
 type appContext struct {
 	startTime       time.Time
-	rawConfig       []byte
+	config          *viper.Viper
 	terminateSignal chan os.Signal
 	terminateFunc   []TerminateFunc
 }
@@ -44,9 +39,9 @@ func init() {
 }
 
 // WaitForTerminateSignal waits for shutdown signal.
-func (ctx *appContext) GetConfig(out interface{}) {
-	if err := yaml.Unmarshal(ctx.rawConfig, out); err != nil {
-		log.Error(LOG, err, zap.String("rawConfig", string(ctx.rawConfig)))
+func (ctx *appContext) GetRootConfig(out interface{}) {
+	if err := ctx.config.Unmarshal(out); err != nil {
+		panic(err)
 	}
 }
 

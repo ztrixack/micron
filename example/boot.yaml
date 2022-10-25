@@ -1,0 +1,15 @@
+log:
+  name: log
+  env: development
+  encoders:
+    - encoding: console
+      level: debug
+      options:
+        encodeLevel: capital-color
+    - encoding: file
+      level: error
+      options:
+        path: var/log
+        filename: "%Y-%m-%d.log"
+        rotate: true
+        rotateTime: 24

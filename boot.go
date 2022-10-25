@@ -1,54 +1,50 @@
 package micron
 
 import (
-	"context"
-	"os"
-	"path"
+	"log"
+	"strings"
 
-	"github.com/ztrixack/micron/log"
-
-	"github.com/google/uuid"
-	"go.uber.org/zap"
+	"github.com/spf13/viper"
 )
 
 type Boot struct {
-	Id         string
-	ConfigPath string
+	configPath string
 }
 
-// NewBoot create a bootstrapper.
 func NewBoot() *Boot {
-	boot := &Boot{
-		Id: uuid.New().String(),
-	}
-	log.Init(log.Config{
-		Development: true,
-	})
-	AppCtx.rawConfig = boot.readYaml()
+	return NewBootWithPath("boot")
+}
+
+func NewBootWithPath(bootfile string) *Boot {
+	boot := &Boot{configPath: bootfile}
+	AppCtx.config = boot.loadConfig()
+
 	return boot
 }
 
-func (boot *Boot) WaitForTerminateSignal(ctx context.Context) {
-	log.Event(LOG, "Service Started")
+func (boot *Boot) RootConfig(config interface{}) *Boot {
+	AppCtx.GetRootConfig(config)
+
+	return boot
+}
+
+func (boot *Boot) WaitForTerminateSignal() {
 	AppCtx.WaitForTerminateSignal()
 }
 
-// readYaml read YAML file
-func (boot *Boot) readYaml() []byte {
-	if len(boot.ConfigPath) < 1 {
-		boot.ConfigPath = "boot.yaml"
-	}
+func (boot *Boot) loadConfig() *viper.Viper {
+	conf := viper.New()
+	conf.AddConfigPath(".")
+	conf.SetConfigName(boot.configPath)
+	conf.SetConfigType("yaml")
+	conf.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
-	if !path.IsAbs(boot.ConfigPath) {
-		wd, _ := os.Getwd()
-		boot.ConfigPath = path.Join(wd, boot.ConfigPath)
-	}
+	conf.AutomaticEnv()
 
-	log.Info(LOG, zap.String("configPath", boot.ConfigPath))
-	res, err := os.ReadFile(boot.ConfigPath)
+	err := conf.ReadInConfig()
 	if err != nil {
-		log.Error(LOG, err, zap.String("configPath", boot.ConfigPath))
+		log.Fatalf("fatal error config file: %s \n", err)
 	}
 
-	return res
+	return conf
 }
