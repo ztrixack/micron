@@ -1,7 +1,6 @@
 package micron
 
 import (
-	"log"
 	"strings"
 
 	"github.com/spf13/viper"
@@ -16,6 +15,8 @@ func NewBoot() *Boot {
 }
 
 func NewBootWithPath(bootfile string) *Boot {
+	go AppCtx.waitForErrorSignal()
+
 	boot := &Boot{configPath: bootfile}
 	AppCtx.config = boot.loadConfig()
 
@@ -24,12 +25,21 @@ func NewBootWithPath(bootfile string) *Boot {
 
 func (boot *Boot) RootConfig(config interface{}) *Boot {
 	AppCtx.GetRootConfig(config)
-
 	return boot
 }
 
 func (boot *Boot) WaitForTerminateSignal() {
-	AppCtx.WaitForTerminateSignal()
+	AppCtx.waitForTerminateSignal()
+}
+
+func (boot *Boot) ErrorSignal(err error) {
+	if err != nil {
+		AppCtx.ErrorSignal <- err
+	}
+}
+
+func (boot *Boot) HandleErrorFunc(fn ErrorFunc) {
+	AppCtx.errorFunc = fn
 }
 
 func (boot *Boot) loadConfig() *viper.Viper {
@@ -43,7 +53,7 @@ func (boot *Boot) loadConfig() *viper.Viper {
 
 	err := conf.ReadInConfig()
 	if err != nil {
-		log.Fatalf("fatal error config file: %s \n", err)
+		AppCtx.ErrorSignal <- err
 	}
 
 	return conf

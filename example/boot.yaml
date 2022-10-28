@@ -1,5 +1,4 @@
 log:
-  name: log
   env: development
   encoders:
     - encoding: console
@@ -9,7 +8,7 @@ log:
     - encoding: file
       level: error
       options:
-        path: var/log
+        path: log
         filename: "%Y-%m-%d.log"
         rotate: true
         rotateTime: 24

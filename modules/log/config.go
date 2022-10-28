@@ -8,9 +8,8 @@ import (
 )
 
 type Config struct {
-	Name     string
-	Env      string
-	Encoders []EncoderConfig
+	Env      string          `default:"test"`
+	Encoders []EncoderConfig `default:"[{\"encoding\": \"console\"}]"`
 }
 
 type EncoderConfig struct {

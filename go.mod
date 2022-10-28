@@ -27,6 +27,7 @@ require (
 )
 
 require (
+	github.com/creasty/defaults v1.6.0
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/pkg/errors v0.9.1 // indirect

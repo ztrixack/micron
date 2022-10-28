@@ -24,23 +24,23 @@ const (
 
 var logger *zap.Logger
 
-func Debug(msg string, fields ...zapcore.Field) {
+func D(msg string, fields ...zapcore.Field) {
 	logger.Debug(msg, fields...)
 }
 
-func Info(msg string, fields ...zapcore.Field) {
+func I(msg string, fields ...zapcore.Field) {
 	logger.Info(msg, fields...)
 }
 
-func Warn(msg string, fields ...zapcore.Field) {
+func W(msg string, fields ...zapcore.Field) {
 	logger.Warn(msg, fields...)
 }
 
-func Error(msg string, fields ...zapcore.Field) {
+func E(msg string, fields ...zapcore.Field) {
 	logger.Error(msg, fields...)
 }
 
-func Critical(msg string, fields ...zapcore.Field) {
+func C(msg string, fields ...zapcore.Field) {
 	logger.Panic(msg, fields...)
 	os.Exit(1)
 }
