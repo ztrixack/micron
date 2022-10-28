@@ -17,16 +17,15 @@ func init() {
 func main() {
 	conf := &RootConfig{}
 	boot := micron.NewBoot().RootConfig(conf)
+	defer boot.WaitForTerminateSignal()
 
-	log.New(conf.Log).Build()
+	err := log.New(conf.Log).Build().Err()
+	boot.ErrorSignal(err)
 
-	log.Info("ENV", zap.String("LOG_ENV", conf.Log.Env))
-
-	log.Debug("Debug")
-	log.Info("Info")
-	log.Warn("Warn")
-	log.Error("Error")
+	log.I("ENV", zap.String("LOG_ENV", conf.Log.Env))
+	log.D("Debug")
+	log.I("Info")
+	log.W("Warn")
+	log.E("Error")
 	// log.Critical("Critical")
-
-	boot.WaitForTerminateSignal()
 }
